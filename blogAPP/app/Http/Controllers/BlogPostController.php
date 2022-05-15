@@ -23,18 +23,30 @@ class BlogPostController extends Controller
     public function create()
     {
         //show form to create a blog post
+        return view('blog.create');
     }
 
    
     public function store(Request $request)
     {
         //store a new post
+        $newPost = BlogPost::create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'user_id' => 1
+        ]);
+
+        return redirect('blog/' . $newPost->id);
+       
     }
 
     public function show(BlogPost $blogPost)
     {
         //show a blog post
-        return $blogPost; //returns the fetched posts
+        //return $blogPost; //returns the fetched posts
+        return view('blog.show', [
+            'post' => $blogPost,
+        ]); 
     }
 
     
